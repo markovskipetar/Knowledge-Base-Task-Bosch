@@ -1,4 +1,5 @@
 import shlex
+import store
 
 # command name mapped to the number of parameters required
 command_specifications = {
@@ -32,6 +33,14 @@ def validate_command(tokens):
 
     return None
 
+
+def add(parameters):
+    title = parameters[0]
+    content = parameters[1]
+
+    store.add(title, content)
+
+
 def execute_command(input_text):
     tokens = tokenize_input(input_text)
     validation_error = validate_command(tokens)
@@ -39,5 +48,3 @@ def execute_command(input_text):
     if validation_error is not None:
         print(validation_error)
         return
-
-
