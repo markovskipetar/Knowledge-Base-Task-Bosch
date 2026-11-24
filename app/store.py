@@ -32,3 +32,7 @@ def add(title, content):
     id_to_title[new_id] = title
     title_to_contents[title].insert(content)
     return None
+
+
+def get_ids_and_titles():
+    return list(id_to_title.items())

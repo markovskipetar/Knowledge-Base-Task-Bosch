@@ -41,6 +41,14 @@ def add(parameters):
     store.add(title, content)
 
 
+def list_all():
+    ids_and_titles = store.get_ids_and_titles()
+
+    for title_id, title in ids_and_titles:
+        print(f"{title_id} | {title}")
+
+
+
 def execute_command(input_text):
     tokens = tokenize_input(input_text)
     validation_error = validate_command(tokens)
