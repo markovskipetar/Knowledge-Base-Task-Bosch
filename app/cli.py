@@ -1,8 +1,6 @@
+from app.commands import execute_command
+
 def main():
     while True:
-        command = input("$ knowledge> ")
-
-        if command.strip().lower() == "exit":
-            return
-
-        print(f"Typed: {command}")
+        input_text = input("$ knowledge> ")
+        execute_command(input_text)
