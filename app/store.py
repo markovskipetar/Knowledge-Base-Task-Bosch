@@ -38,3 +38,11 @@ def get_all_ids_and_titles():
     return list(id_to_title.items())
 
 
+def get_title_and_its_contents(title_id):
+    title = id_to_title.get(title_id)
+
+    if title is None:
+        return None, None
+
+    contents = title_to_contents.get(title)
+    return title, contents

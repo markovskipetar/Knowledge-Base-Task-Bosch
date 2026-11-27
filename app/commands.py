@@ -52,6 +52,39 @@ def list_all(parameters):
         print(f"{title_id} | {title}")
 
 
+def parse_id(value):
+    try:
+        title_id = int(value)
+    except ValueError:
+        print("ID must be an integer.")
+        return
+
+    if title_id < 0:
+        print("ID cannot be negative.")
+        return
+
+    return title_id
+
+
+def show(parameters):
+    title_id = parse_id(parameters[0])
+
+    if title_id is None:
+        return
+
+    title_and_its_contents = store.get_title_and_its_contents(title_id)
+
+    title = title_and_its_contents[0]
+    contents = title_and_its_contents[1]
+
+    if title is None:
+        print(f"No entry found with ID {title_id}.")
+        return
+
+    print(f"{title}:")
+
+    for content in contents:
+        print(f" - {content}")
 
 
 
