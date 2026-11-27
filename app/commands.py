@@ -125,7 +125,7 @@ def delete(parameters):
         print(error)
 
 
-def exit_command(parameters):
+def exit(parameters):
     return True
 
 
@@ -135,7 +135,7 @@ command_to_function = {
     "Show": show,
     "Search": search,
     "Delete": delete,
-    "Exit": exit_command
+    "Exit": exit
 }
 
 
