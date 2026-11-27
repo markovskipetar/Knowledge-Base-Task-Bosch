@@ -1,0 +1,55 @@
+Functions wrote by AI agent:
+- tokenize_input()
+- regex matching
+- json load and save
+- tests
+- .toml file
+
+1) What happens when you type "knowledge" in the terminal
+- the terminal inside has a program called Shell
+- Shell reads the command and looks for a place where it can run the command. This place is called PATH. The command can be installed inside the shell or a separate executable 
+
+2) Virtual environment
+- Project-specific toolbox that has python interpreter and a place to install the project's packages and commands. On Windows this toolbox has a folder called .venv/Scripts. When the virtual environment is activated, it adds the folder to the PATH and that is why the python commands started working
+- Later a knowledge launcher will be added to the PATH with the environment activation
+- Virtual environment activation is valid only on the current terminal session
+
+3) pyproject.toml
+- This project provides a terminal command named knowledge. When someone runs it, start this function
+- In this file I tell the installer to create a command called knowledge, and connect it to this Python function
+- an installation tool - pip - reads the instructions from the .toml and creates a small launcher for knowledge. It puts that launcher inside the .venv
+
+4) naming conventions and good practices in python
+
+5) creating custom-made .toml file
+- [build-system] - tells pip how to install the command
+- [project] - gives the project name and version
+- [project.scripts]
+  knowledge = "cli:main"  - Create a command named knowledge that calls the main function in the cli module
+- installing the command: python -m pip install -e .
+
+6) working with required commands: will use dictionary
+- dict1: title -> List<content>
+- dict2: id -> title 
+
+add - O(1) in both dicts - checks if the title exists, if so add only the content, no new id is generated. If title does not exist, generate new id, add {id->title} and {title->content}. HANDLE ERRORS!
+
+list - O(n) - list all N entries from the dict2 only
+
+show - O(1) - retrieves the title related to the id from dict2 and then retrieves the contents from dict1. HANDLE ERRORS!
+
+search - O(titles count + contents count) - prints all titles and contents that contains a searched words(or words). case insensitive. HANDLE ERRORS!
+
+delete - O(1) - retrieves the title related to the id from dict2. delete the entry from dict2 then delete the entry from dict1. HANDLE ERRORS!
+
+7) packages, modules and imports
+- the files that are grouped inside a folder are called modules. The folder, wrapping them, is called package.
+- in case to access some function from one module to another, I must perform an import, there are two ways:
+- 1) import the whole module - from app import commands -> use the function: commands.function_name(...)
+- 2) import specific function - from app.commands import function_name -> use the function directly: function_name(...)
+- when something is imported, python looks what folder the imported things is in, and runs the __init__.py code. Usually the imported code is imported once per running the program
+
+8) how global scope works
+- if a global variable is defined, and just want to read its value, without modifying it, its not neccessary to use global keyword
+- if the global variable needs to be edited from a functon, it firstly needs to be declaraed as global inside the function. If there is global variable counter, in the function must be: global counter
+- if a dictionary is global, its not neccessary to mark it as global in order to modify the content of the dictionary: dict[kay]=value -> no global required, but if the whole dictionary is changed, global is required
