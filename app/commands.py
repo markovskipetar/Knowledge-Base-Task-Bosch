@@ -125,6 +125,19 @@ def delete(parameters):
         print(error)
 
 
+def exit_command(parameters):
+    return True
+
+
+command_to_function = {
+    "Add": add,
+    "List": list_all,
+    "Show": show,
+    "Search": search,
+    "Delete": delete,
+    "Exit": exit_command
+}
+
 
 def execute_command(input_text):
     try:
