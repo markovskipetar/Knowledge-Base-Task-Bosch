@@ -1,5 +1,5 @@
 import shlex
-import store
+from app import store
 
 # command name mapped to the number of parameters required
 command_specifications = {
@@ -7,7 +7,8 @@ command_specifications = {
     "List": 0,
     "Show": 1,
     "Search": 1,
-    "Delete": 1
+    "Delete": 1,
+    "Exit": 0
 }
 
 
@@ -19,7 +20,7 @@ def validate_command(tokens):
     if len(tokens) == 0:
         return "Missing command!"
 
-    tokens[0].capitalize()
+    tokens[0] = tokens[0].capitalize()
     command_name = tokens[0]
     required_parameters_count = command_specifications.get(command_name)
 
@@ -29,7 +30,7 @@ def validate_command(tokens):
     provided_parameters_count = len(tokens) - 1
 
     if required_parameters_count != provided_parameters_count:
-        return f"{command_name} requires exactly {required_parameters_count}!"
+        return f"{command_name} requires exactly {required_parameters_count} parameters!"
 
     return None
 
@@ -38,21 +39,40 @@ def add(parameters):
     title = parameters[0]
     content = parameters[1]
 
-    store.add(title, content)
+    error = store.add(title, content)
+    if error is not None:
+        print(error)
 
 
-def list_all():
-    ids_and_titles = store.get_ids_and_titles()
+# intentionally passing parameters so I can call all function the same way
+def list_all(parameters):
+    ids_and_titles = store.get_all_ids_and_titles()
 
     for title_id, title in ids_and_titles:
         print(f"{title_id} | {title}")
 
 
 
+
+
+
+
+
 def execute_command(input_text):
-    tokens = tokenize_input(input_text)
+    try:
+        tokens = tokenize_input(input_text)
+    except ValueError as error:
+        print(f"Invalid input: {error}")
+        return
+
     validation_error = validate_command(tokens)
 
     if validation_error is not None:
         print(validation_error)
         return
+
+    command_name = tokens[0]
+    parameters = tokens[1:]
+
+    function_for_command = command_to_function.get(command_name)
+    return function_for_command(parameters)

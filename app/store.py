@@ -1,25 +1,25 @@
 title_to_contents: dict[str, list[str]] = {}
 id_to_title: dict[int, str] = {}
 
-title_id = -1  # this id must be reloaded when reading the json data from storage
+last_used_title_id = -1
 
 
-def set_last_used_id(last_used_id):
-    global title_id
-    title_id = last_used_id
+def set_last_used_title_id(last_used_id):
+    global last_used_title_id
+    last_used_title_id = last_used_id
 
 
 def get_next_available_id():
-    global title_id
-    title_id = title_id + 1
-    return title_id
+    global last_used_title_id
+    last_used_title_id = last_used_title_id + 1
+    return last_used_title_id
 
 
 def add(title, content):
-    if len(title) == 0:
+    if not title:
         return "Title is empty"
 
-    if len(content) == 0:
+    if not content:
         return "Content is empty"
 
     contents = title_to_contents.get(title)
@@ -30,9 +30,11 @@ def add(title, content):
 
     new_id = get_next_available_id()
     id_to_title[new_id] = title
-    title_to_contents[title].insert(content)
+    title_to_contents[title] = [content]
     return None
 
 
-def get_ids_and_titles():
+def get_all_ids_and_titles():
     return list(id_to_title.items())
+
+
