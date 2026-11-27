@@ -38,6 +38,18 @@ def get_all_ids_and_titles():
     return list(id_to_title.items())
 
 
+def delete(id_to_delete):
+    title = id_to_title.get(id_to_delete)
+
+    if title is None:
+        return f"No entry found with ID {id_to_delete}."
+
+    del id_to_title[id_to_delete]
+    del title_to_contents[title]
+
+    return None
+
+
 def search_in_all(searched_word):
     if not searched_word:
         return []

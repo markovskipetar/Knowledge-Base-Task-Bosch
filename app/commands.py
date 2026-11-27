@@ -113,6 +113,17 @@ def search(parameters):
     print_highlighted_matches(matches, searched_word)
 
 
+def delete(parameters):
+    id_to_delete = parse_id(parameters[0])
+
+    if id_to_delete is None:
+        return
+
+    error = store.delete(id_to_delete)
+
+    if error is not None:
+        print(error)
+
 
 
 def execute_command(input_text):
