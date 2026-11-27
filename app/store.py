@@ -38,6 +38,22 @@ def get_all_ids_and_titles():
     return list(id_to_title.items())
 
 
+def search_in_all(searched_word):
+    if not searched_word:
+        return []
+
+    searched_word = searched_word.lower()
+    matches = []
+    
+    for title, contents in title_to_contents.items():
+        if searched_word in title.lower():
+            matches.append(title)
+
+        matches.extend(content for content in contents if searched_word in content.lower())
+
+    return matches
+
+
 def get_title_and_its_contents(title_id):
     title = id_to_title.get(title_id)
 

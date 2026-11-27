@@ -1,3 +1,4 @@
+import re
 import shlex
 from app import store
 
@@ -87,6 +88,29 @@ def show(parameters):
         print(f" - {content}")
 
 
+def print_highlighted_matches(matches, searched_word):
+    pattern = re.compile(re.escape(searched_word), re.IGNORECASE)
+    print(f'Matches for "{searched_word}":')
+
+    for text in matches:
+        highlighted_match = pattern.sub(lambda match: f"[{match.group()}]", text)
+        print(f"  - {highlighted_match}")
+
+
+def search(parameters):
+    searched_word = parameters[0]
+
+    if not searched_word:
+        print("Search text cannot be empty.")
+        return
+
+    matches = store.search_in_all(searched_word)
+
+    if not matches:
+        print(f'No matches found for "{searched_word}".')
+        return
+
+    print_highlighted_matches(matches, searched_word)
 
 
 
